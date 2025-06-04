@@ -81,7 +81,7 @@ void drawHead() {
     // ─── FOREHEAD “ELLIPSOID” LAYER ──────────────────────────────────────────
     glPushMatrix();
     glColor3f(0.4039216f, 0.592159f, 0.666667f);
-    glTranslatef(0.0f, 1.5f, 0.75f);
+    glTranslatef(0.0f, 3.0f, 0.75f);
     glScalef(0.2f, 0.2f, 0.2f);
     glutSolidDodecahedron();
     glPopMatrix();
@@ -89,14 +89,14 @@ void drawHead() {
     //add main head
     glPushMatrix();
     glColor3f(0.4039216f, 0.592159f, 0.666667f);
-    glTranslatef(0.0f, 1.5f, 0.3f);
+    glTranslatef(0.0f, 3.0f, 0.3f);
     glutSolidSphere(0.6f, 32, 32);
     glPopMatrix();
 
     //add head
     glPushMatrix();
     glColor3f(0.4039216f, 0.592159f, 0.666667f);
-    glTranslatef(0.0f, 1.5f, 0.3f);
+    glTranslatef(0.0f, 3.0f, 0.3f);
     glScalef(0.2f, 0.2f, 0.2f);
 
     glutSolidSphere(0.6f, 32, 32);
@@ -107,7 +107,7 @@ void drawHead() {
     glColor3f(0.4039216f, 0.592159f, 0.666667f);
     // Position the base of the cone just in front of the sphere’s surface:
 
-    glTranslatef(0.0f, 1.0f, 0.65f);
+    glTranslatef(0.0f, 3.0f, 0.65f);
     glRotatef(40.0f, 1.0f, 0.0f, 0.0f);
     // glutSolidCone(baseRadius, height, slices, stacks)
 
@@ -119,14 +119,14 @@ void drawHead() {
     //left cheek
     glPushMatrix();
     glColor3f(0.4039216f, 0.592159f, 0.666667f);
-    glTranslatef(-0.25f, 0.1f, 0.3f);
+    glTranslatef(-0.25f, 3.0f, 0.3f);
     glutSolidSphere(0.4f, 32, 32);
     glPopMatrix();
 
 
     glPushMatrix();
     glColor3f(0.4039216f, 0.592159f, 0.666667f);
-    glTranslatef(0.25f, 0.1f, 0.3f);
+    glTranslatef(0.25f, 3.0f, 0.3f);
     glutSolidSphere(0.4f, 32, 32);
     glPopMatrix();
 
@@ -138,7 +138,7 @@ float earRotY[4] = { 25.0f,   0.0f,   0.0f,   -25.0f };  // sudut rotate kiri–
 
 void drawEarAppendage() {
     const float xOffsets[4] = { -0.5f,  -0.2f,  0.4f,  0.6f };//control kedudukan
-    const float HEAD_Y = 0.0f;
+    const float HEAD_Y = 3.0f;
     const float HEAD_Z = -0.10f;
     const float SCALE_X1 = 0.10f;
     const float SCALE_Y1 = 0.10f;
@@ -170,7 +170,7 @@ void drawBody() {
     GLUquadric* q = gluNewQuadric();
     glPushMatrix();
     glColor3f(0.4039216f, 0.592159f, 0.666667f);
-    glTranslatef(0.0f, -0.8f, 0.2f);      // move neck down
+    glTranslatef(0.0f, 2.1f, 0.2f);      // move neck down
     glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);   // align +Z→+Y
     gluCylinder(q, 0.20f, 0.20f, 0.40f, 20, 1);
     glPopMatrix();
@@ -178,7 +178,7 @@ void drawBody() {
 
     // ─── 2) DRAW SPIKES AROUND THE TOP OF THE NECK ────────────────────────────
     const int   NUM_SPIKES = 6;
-    const float NECK_TOP_Y = -0.8f;   // (−0.65 + 0.40)
+    const float NECK_TOP_Y = 2.2f;   // (−0.65 + 0.40)
     const float NECK_RADIUS = 0.20f;
     const float CONE_BASE = 0.05f;
     const float CONE_HEIGHT = 0.20f;
