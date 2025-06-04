@@ -81,7 +81,7 @@ void drawHead() {
     // ─── FOREHEAD “ELLIPSOID” LAYER ──────────────────────────────────────────
     glPushMatrix();
     glColor3f(0.4039216f, 0.592159f, 0.666667f);
-    glTranslatef(0.0f, -0.15f, 0.75f);
+    glTranslatef(0.0f, 1.5f, 0.75f);
     glScalef(0.2f, 0.2f, 0.2f);
     glutSolidDodecahedron();
     glPopMatrix();
@@ -89,14 +89,14 @@ void drawHead() {
     //add main head
     glPushMatrix();
     glColor3f(0.4039216f, 0.592159f, 0.666667f);
-    glTranslatef(0.0f, -0.1f, 0.3f);
+    glTranslatef(0.0f, 1.5f, 0.3f);
     glutSolidSphere(0.6f, 32, 32);
     glPopMatrix();
 
     //add head
     glPushMatrix();
     glColor3f(0.4039216f, 0.592159f, 0.666667f);
-    glTranslatef(0.0f, -0.1f, 0.3f);
+    glTranslatef(0.0f, 1.5f, 0.3f);
     glScalef(0.2f, 0.2f, 0.2f);
 
     glutSolidSphere(0.6f, 32, 32);
@@ -107,7 +107,7 @@ void drawHead() {
     glColor3f(0.4039216f, 0.592159f, 0.666667f);
     // Position the base of the cone just in front of the sphere’s surface:
 
-    glTranslatef(0.0f, -0.3f, 0.65f);
+    glTranslatef(0.0f, 1.0f, 0.65f);
     glRotatef(40.0f, 1.0f, 0.0f, 0.0f);
     // glutSolidCone(baseRadius, height, slices, stacks)
 
@@ -259,6 +259,7 @@ int main(int argc, char** argv) {
     glutCreateWindow("3D Nature Background");
     init();
     glutDisplayFunc(display);
+    glutSpecialFunc(handleSpecialKeys);
     glutMainLoop();
 
     return 0;
