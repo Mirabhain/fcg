@@ -10,7 +10,7 @@ float _angleY = 0.0f;
 float _angleX = 0.0f;
 
 
-void ground() {
+void ground(){
     glColor3f(0.0f, 0.8f, 0.0f); //Bright green
     glBegin(GL_QUADS);
     glVertex3f(-20.0f, 0.0f, -20.0f);
@@ -166,46 +166,202 @@ void drawEarAppendage() {
 }
 
 void drawBody() {
-    //draw neck
+    // ─── 1) Neck (cylinder) ───────────────────────────────────────────────────
     GLUquadric* q = gluNewQuadric();
     glPushMatrix();
     glColor3f(0.4039216f, 0.592159f, 0.666667f);
-    glTranslatef(0.0f, 2.1f, 0.2f);      // move neck down
-    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);   // align +Z→+Y
+    glTranslatef(0.0f, 2.1f, 0.2f);
+    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);  // align +Z→+Y
     gluCylinder(q, 0.20f, 0.20f, 0.40f, 20, 1);
     glPopMatrix();
     gluDeleteQuadric(q);
 
-    // ─── 2) DRAW SPIKES AROUND THE TOP OF THE NECK ────────────────────────────
+    // ─── 2) Spikes Around Top of Neck ─────────────────────────────────────────
     const int   NUM_SPIKES = 6;
-    const float NECK_TOP_Y = 2.2f;   // (−0.65 + 0.40)
+    const float NECK_TOP_Y = 2.2f;   // (2.1 + 0.1)
     const float NECK_RADIUS = 0.20f;
     const float CONE_BASE = 0.05f;
     const float CONE_HEIGHT = 0.20f;
-
     for (int i = 0; i < NUM_SPIKES; ++i) {
         float angleDeg = (370.0f / NUM_SPIKES) * i;
         glPushMatrix();
         glTranslatef(0.0f, NECK_TOP_Y, 0.2f);
-        glRotatef(90, 0.0f, 1.0f, 0.0f);
+        glRotatef(90.0f, 0.0f, 1.0f, 0.0f);
         glRotatef(angleDeg, 0.0f, 1.0f, 0.0f);
         glTranslatef(0.0f, 0.0f, NECK_RADIUS);
-        glColor3f(0.40303922f, 0.592157f, 0.555557f);
-        // glutSolidCone(baseRadius, height, slices, stacks)
+        glColor3f(0.403922f, 0.592157f, 0.666667f);
         glutSolidCone(CONE_BASE, CONE_HEIGHT, 20, 20);
         glPopMatrix();
     }
 
-    // ─── 3) DRAW MAIN BODY (A SCALED CUBE) ────────────────────────────────────
+    // ─── 3) Main Body (scaled cube) ───────────────────────────────────────────
     glPushMatrix();
-    glTranslatef(0.0f, -1.2f, 0.0f);
+    glColor3f(0.403922f, 0.592157f, 0.666667f);
+    glTranslatef(0.0f, 1.6f, 0.2f);
     glScalef(0.5f, 0.8f, 0.3f);
-    glColor3f(0.40303922f, 0.592157f, 0.555557f);
-    glutSolidCube(0.8f);
+    glutSolidCube(1.5f);
     glPopMatrix();
+
+    // ─── 4) Shoulders (left & right) ─────────────────────────────────────────
+    // Right shoulder
+    glPushMatrix();
+    glTranslatef(0.5f, 1.9f, 0.2f);
+    glScalef(0.2f, 0.3f, 0.3f);
+    glColor3f(0.388235f, 0.3921569f, 0.4f); // Dark grey
+    glutSolidSphere(1.0f, 20, 20);
+    glPopMatrix();
+
+    // Left shoulder
+    glPushMatrix();
+    glTranslatef(-0.5f, 1.9f, 0.2f);
+    glScalef(0.2f, 0.3f, 0.3f);
+    glColor3f(0.388235f, 0.3921569f, 0.4f); // Dark grey
+    glutSolidSphere(1.0f, 20, 20);
+    glPopMatrix();
+
+    // ─── 5) Chest (yellow “fur” patch) ─────────────────────────────────────────
+    glPushMatrix();
+    glColor3f(1.0f, 1.0f, 0.878f);
+    // Position it slightly above the main body, in front
+    glTranslatef(0.0f, 1.8f, 0.35f);
+    glScalef(0.4f, 0.5f, 0.15f);
+    glutSolidSphere(1.0f, 32, 32);
+    glPopMatrix();
+
+    // ─── 6) Arms ───────────────────────────────────────────────────────────────
+    // Helper quadric for small cylinders if needed (not used here, but left if you want a cylinder arm)
+    // GLUquadric* armQ = gluNewQuadric();
+
+    // RIGHT ARM:
+    //   Upper arm (blue)
+    glPushMatrix();
+    glTranslatef(0.8f, 1.65f, 0.2f);
+    glScalef(0.15f, 0.5f, 0.15f);
+    glColor3f(0.4039216f, 0.592159f, 0.666667f);
+    glutSolidSphere(1.0f, 20, 20);
+    glPopMatrix();
+
+    //   Forearm (dark grey)
+    glPushMatrix();
+    glTranslatef(0.8f, 1.1f, 0.2f);
+    glScalef(0.12f, 0.5f, 0.12f);
+    glColor3f(0.388235f, 0.3921569f, 0.4f);
+    glutSolidSphere(1.0f, 20, 20);
+    glPopMatrix();
+
+    //   Hand (dark grey sphere)
+    glPushMatrix();
+    glTranslatef(0.8f, 0.7f, 0.2f);
+    glColor3f(0.388235f, 0.3921569f, 0.4f);
+    glutSolidSphere(0.15f, 16, 16);
+    glPopMatrix();
+
+    //   Spike on back of right hand (white cone)
+    glPushMatrix();
+    glColor3f(1.0f, 1.0f, 1.0f);
+    glTranslatef(0.8f, 0.85f, 0.35f);
+    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+    glutSolidCone(0.1f, 0.2f, 10, 10);
+    glPopMatrix();
+
+    // LEFT ARM:
+    //   Upper arm (blue)
+    glPushMatrix();
+    glTranslatef(-0.8f, 1.65f, 0.2f);
+    glScalef(0.15f, 0.5f, 0.15f);
+    glColor3f(0.4039216f, 0.592159f, 0.666667f);
+    glutSolidSphere(1.0f, 20, 20);
+    glPopMatrix();
+
+    //   Forearm (dark grey)
+    glPushMatrix();
+    glTranslatef(-0.8f, 1.1f, 0.2f);
+    glScalef(0.12f, 0.5f, 0.12f);
+    glColor3f(0.388235f, 0.3921569f, 0.4f);
+    glutSolidSphere(1.0f, 20, 20);
+    glPopMatrix();
+
+    //   Hand (dark grey sphere)
+    glPushMatrix();
+    glTranslatef(-0.8f, 0.7f, 0.2f);
+    glColor3f(0.388235f, 0.3921569f, 0.4f);
+    glutSolidSphere(0.15f, 16, 16);
+    glPopMatrix();
+
+    //   Spike on back of left hand (white cone)
+    glPushMatrix();
+    glColor3f(1.0f, 1.0f, 1.0f);
+    glTranslatef(-0.8f, 0.85f, 0.35f);
+    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+    glutSolidCone(0.1f, 0.2f, 10, 10);
+    glPopMatrix();
+
+    // ─── 7) Legs ──────────────────────────────────────────────────────────────
+    // RIGHT LEG:
+    //   Upper leg (blue)
+    glPushMatrix();
+    glTranslatef(0.3f, 1.0f, 0.2f);
+    glScalef(0.15f, 0.5f, 0.15f);
+    glColor3f(0.4039216f, 0.592159f, 0.666667f);
+    glutSolidSphere(1.0f, 20, 20);
+    glPopMatrix();
+
+    //   Lower leg (dark grey)
+    glPushMatrix();
+    glTranslatef(0.3f, 0.5f, 0.2f);
+    glScalef(0.12f, 0.5f, 0.12f);
+    glColor3f(0.388235f, 0.3921569f, 0.4f);
+    glutSolidSphere(1.0f, 20, 20);
+    glPopMatrix();
+
+    //   Foot (dark grey)
+    glPushMatrix();
+    glTranslatef(0.3f, 0.2f, 0.4f);
+    glColor3f(0.388235f, 0.3921569f, 0.4f);
+    glScalef(0.20f, 0.07f, 0.30f);
+    glutSolidSphere(1.0f, 20, 20);
+    glPopMatrix();
+
+    // LEFT LEG:
+    //   Upper leg (blue)
+    glPushMatrix();
+    glTranslatef(-0.3f, 1.0f, 0.2f);
+    glScalef(0.15f, 0.5f, 0.15f);
+    glColor3f(0.4039216f, 0.592159f, 0.666667f);
+    glutSolidSphere(1.0f, 20, 20);
+    glPopMatrix();
+
+    //   Lower leg (dark grey)
+    glPushMatrix();
+    glTranslatef(-0.3f, 0.5f, 0.2f);
+    glScalef(0.12f, 0.5f, 0.12f);
+    glColor3f(0.388235f, 0.3921569f, 0.4f);
+    glutSolidSphere(1.0f, 20, 20);
+    glPopMatrix();
+
+    //   Foot (dark grey)
+    glPushMatrix();
+    glTranslatef(-0.3f, 0.2f, 0.4f);
+    glColor3f(0.388235f, 0.3921569f, 0.4f);
+    glScalef(0.20f, 0.07f, 0.30f);
+    glutSolidSphere(1.0f, 20, 20);
+    glPopMatrix();
+
+    // ─── 8) Tail ──────────────────────────────────────────────────────────────
+    {
+        GLUquadric* tailQ = gluNewQuadric();
+        glPushMatrix();
+        // Start tail at base of spine, just behind hips
+        glTranslatef(0.0f, 1.0f, -0.4f);
+        // Point tail slightly downward and backward
+        glRotatef(160.0f, 1.0f, 0.0f, 0.0f);
+        // Draw a tapered cylinder (base thick, tip thin)
+        glColor3f(0.4039216f, 0.592159f, 0.666667f);
+        gluCylinder(tailQ, 0.10f, 0.03f, 1.0f, 20, 1);
+        glPopMatrix();
+        gluDeleteQuadric(tailQ);
+    }
 }
-
-
 
 
 void display() {
