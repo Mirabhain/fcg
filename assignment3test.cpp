@@ -237,6 +237,7 @@ void drawBody() {
     glPushMatrix();
     glTranslatef(0.8f, 1.65f, 0.2f);
     glScalef(0.15f, 0.5f, 0.15f);
+    glRotatef(45.0f, 1.0f, 0.0f, 0.0f);
     glColor3f(0.4039216f, 0.592159f, 0.666667f);
     glutSolidSphere(1.0f, 20, 20);
     glPopMatrix();
@@ -259,8 +260,8 @@ void drawBody() {
     //   Spike on back of right hand (white cone)
     glPushMatrix();
     glColor3f(1.0f, 1.0f, 1.0f);
-    glTranslatef(0.8f, 0.85f, 0.35f);
-    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+    glTranslatef(0.8f, 0.85f, 0.3f);
+    glRotatef(0.0f, 1.0f, 0.0f, 0.0f);
     glutSolidCone(0.1f, 0.2f, 10, 10);
     glPopMatrix();
 
@@ -291,8 +292,8 @@ void drawBody() {
     //   Spike on back of left hand (white cone)
     glPushMatrix();
     glColor3f(1.0f, 1.0f, 1.0f);
-    glTranslatef(-0.8f, 0.85f, 0.35f);
-    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+    glTranslatef(-0.8f, 0.85f, 0.3f);
+    glRotatef(0.0f, 1.0f, 0.0f, 0.0f);
     glutSolidCone(0.1f, 0.2f, 10, 10);
     glPopMatrix();
 
@@ -347,7 +348,7 @@ void drawBody() {
     glutSolidSphere(1.0f, 20, 20);
     glPopMatrix();
 
-    // ─── 8) Tail ──────────────────────────────────────────────────────────────
+    // make bigger─── 8) Tail ──────────────────────────────────────────────────────────────
     {
         GLUquadric* tailQ = gluNewQuadric();
         glPushMatrix();
@@ -363,6 +364,14 @@ void drawBody() {
     }
 }
 
+void drawEars() {
+    //
+}
+
+void drawFace2D()
+{
+    //
+}
 
 void display() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -384,6 +393,7 @@ void display() {
     drawBody();//add
     drawHead();//add
     drawEarAppendage();//add
+
 
 
 
